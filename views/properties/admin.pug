@@ -1,0 +1,88 @@
+extends ../layout/admin
+
+block styles
+    meta(name="csrf-token" content= csrfToken)
+
+block contenido
+    div(class="py-0 lg:py-10")
+        h2.h2.text-center= pagina
+
+        div.flex.justify-between
+            form(
+                action="/buscador"
+                method="POST"
+                class="relative flex gap-x-[10px] items-center"
+            )
+                input(
+                    type="hidden"
+                    name="_csrf"
+                    value= csrfToken
+                )
+
+                label(for="search")
+                    div.text-accent
+                        include ../../icons/search
+                input(
+                    type="text"
+                    id="search"
+                    name="search"
+                    placeholder="Título..."
+                    class="outline-none w-[160px] bg-transparent focus:border-b-2 focus:border-accent placeholder:italic"
+                )
+
+                input(
+                    type="submit"
+                    value="Buscar"
+                    class="text-secondary hover:text-accent-secondary text-base font-medium transition"
+                )
+            a(
+                href="/propiedades/nueva" 
+                class="btn-accent rounded-full p-4 my-5"
+            ) 
+                include ../../icons/homeAdd.pug
+
+        //- pre= JSON.stringify(properties, undefined, 2)
+        if properties.length
+            div(class="bg-white shadow-custom2 text-lg rounded-lg")
+                ul(id="properties-list" class="divide-y divide-gray-200")
+                    each property in properties
+                        if property.visible
+                            //- card
+                            li
+                                include ../templates/adminCard
+
+                //- pagination
+                div(class="bg-whit px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6")
+                    div(class="flex-1 flex justify-between sm:hidden")
+                        a(
+                            href=`/mis-propiedades?pagina=${actualPage - 1}`
+                            class=`${actualPage === 1 ? 'pointer-events-none' : ''} relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-primary bg-white hover:bg-gray-50`
+                        ) Anterior
+                        a(
+                            href=`/mis-propiedades?pagina=${actualPage + 1}`
+                            class=`${actualPage === pages ? 'pointer-events-none' : ''} relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-primary bg-white hover:bg-gray-50`
+                        ) Siguiente
+
+                    div(class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between")
+                        p(class="text-sm font-medium text-primary gap-2") Mostrando 
+                            span #{offset + 1} a 
+                            span #{total < limit + offset ? total : limit + offset} de 
+                            span #{total} resultados
+                    
+                    div(class="hidden sm:block")
+                        nav(class="relative z-0 inline-flex rounded-md shadow-md")
+                            - var n = 1;
+                                while n <= pages 
+                                    a(
+                                        href=`/mis-propiedades?pagina=${n}`
+                                        class=`${actualPage == n ? 'bg-blue-50 border-blue-500 text-accent' : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'} relative inline-flex items-center px-4 py-2 border text-sm font-medium`
+                                    ) #{n++}
+        else 
+            p.text-center.my-10 No has agregado propiedades
+
+            //- Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam repellat doloribus est iste. Ratione tenetur cumque
+block scripts
+    script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js")
+    script(src="../js/filtersHome.js")
+    script(src="../js/changeStatus.js")
+    script(src="../js/deleteProperty.js")

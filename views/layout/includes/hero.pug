@@ -1,0 +1,44 @@
+section(class="hero bg-grey py-12 xl:pt-12 xl:pb-0 overflow-hidden")
+    div.container.mx-auto.h-full
+        //- text-imagen
+        div(class="flex flex-col xl:flex-row items-center justify-between h-full mt-10")
+            //- text
+            div(class="hero_text xl:w-[48%] text-center xl:text-left")
+                //- badge
+                div(class="flex items-center bg-white py-[10px] px-[20px] w-max gap-x-2 mb-[26px] rounded-full mx-auto xl:mx-0")
+                    //- badge icon
+                    div.text-accent.text-2xl 
+                        include ../../../icons/homeHeart
+                    div(class="uppercase text-base font-medium text-[#9ab4b7] tracking-[2.24px]") Tu lugar seguro
+                //- title
+                h1(class="h2 mb-6") Compras, vendes o rentas
+                    span.text-hover ... 
+                    span somos 
+                    span.text-accent tu mejor opción
+                    span.text-hover.font-bold !
+                //- desc
+                p(class="mb-[42px] md:max-w-xl mx-auto") Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex fugiat, eum eos magni sint ut consequatur ratione saepe perspiciatis mollitia.
+                //- btn
+                a(
+                    href="/contacto"
+                    class="btn btn-sm btn-accent w-[340px] lx:w-auto mx-auto my-0 xl:mx-0 xl:my-4"
+                ) Contactanos
+                //- button(class="btn btn-lg btn-accent mx-auto my-0 xl:mx-0 xl:my-4") Contactanos
+            //- image
+            div(class="hero__img hidden xl:flex max-w-[814px] self-end")
+                img(
+                    src="../img/hero.jpg" 
+                    alt="Hero"
+                    class="rounded-tl-full rounded-tr-full"
+                )
+
+//- filters
+div(
+    class="px-[30px] py-6 max-w-[1170px] mx-auto flex flex-col lg:flex-row justify-around lg:items-center gap-4 lg:gap-x-3 relative lg:-top-4 lg:shadow-1 sm:bg-white lg:bg-transparent lg:backdrop-blur rounded-lg"
+)
+    //- showMap
+    a(href="/mapa") 
+        div(class="btn btn-sm bg-red-700 border-2 border-transparent text-white hover:bg-transparent hover:border-red-600 hover:text-secondary w-auto md:w-[340px] mx-auto")
+            div(class="flex gap-2 items-center")
+                include ../../../icons/map
+                    span(class="") Buscar en el mapa

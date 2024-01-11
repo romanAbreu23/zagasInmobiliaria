@@ -1,0 +1,52 @@
+a(href=`/propiedad/${property.id}` class="result") 
+    div(class="bg-white shadow-custom2 rounded-[10px] overflow-hidden cursor-pointer group")
+        //- image
+        div(class="relative overflow-hidden")
+            img(
+                src=`/uploads/${property.images[0].name}`
+                alt=`Imagen de casa ${property.title}`
+                class="object-cover h-72 w-full group-hover:scale-110 transition-all duration-500"
+            )
+            //- badge
+            div(class="bg-transparent backdrop-blur-sm shadow-1 rounded absolute bottom-0 left-0 text-blue-100 text-base tracking-[2.24px] font-medium py-[6px] px-[18px]") 
+                if property.categoryId === 1
+                    include ../../icons/home
+                if property.categoryId === 2
+                    include ../../icons/departments
+                if property.categoryId === 3
+                    include ../../icons/land
+                if property.categoryId === 4
+                    include ../../icons/store
+                if property.categoryId === 5
+                    include ../../icons/properties
+                if property.categoryId === 6
+                    include ../../icons/building
+        div.p-5.space-y-2
+            //- title
+            h3(class="text-[20px] xl:text-[22px] font-semibold capitalize text-primary truncate")= property.title
+            //- city
+            div(class="inline-flex items-center rounded-full text-sm font-light text-red-600")
+                p(class="rounded-full") 
+                    include ../../icons/location
+                    p(class="rounded-full ml-1 mr-2")= property.city
+            //- icons
+            div(class="grid grid-cols-2 md:flex md:items-center md:justify-around text-secondary gap-1")
+                div.flex.items-center.gap-1
+                    p(class="text-accent text-xs") 
+                        include ../../icons/bed
+                    p(class="block text-sm")= property.bedrooms
+                div.flex.items-center.gap-1
+                    p(class="text-accent text-xs") 
+                        include ../../icons/bath
+                    p(class="block text-sm")= property.wc
+                div.flex.items-center.gap-1
+                    p(class="text-accent text-xs")
+                        include ../../icons/garage
+                    p(class="block text-sm")= property.garage
+                div.flex.items-center.gap-1
+                    p(class="text-accent text-xs")
+                        include ../../icons/area
+                    p(class="block text-sm")= property.landArea
+                        span  mts2
+                            
+        p(class="text-primary text-right text-lg md:text-base font-semibold py-4 px-6 md:py-2 md:px-4")= propertyPrice(property.realPrice)

@@ -1,0 +1,143 @@
+extends ../layout/app
+
+block styles
+    link(rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css")
+
+block contenido
+
+    pre= JSON.stringify(message, undefined, 2)
+
+    div(class="py-0 lg:py-10")
+        h2#title.h2.text-center= property.title
+
+        div(class="mt-10 flex items-center gap-x-2")
+            if property.categoryId == 1
+                include ../../icons/home
+            if property.categoryId == 2
+                include ../../icons/departments
+            if property.categoryId == 3
+                include ../../icons/land
+            if property.categoryId == 4
+                include ../../icons/store
+            if property.categoryId == 5
+                include ../../icons/properties
+            if property.categoryId == 6
+                include ../../icons/building
+            p.font-light= property.category.name
+        
+        div(class="mt-5 md:flex md:gap-4 md:items-start")
+            div(class="md:w-2/3 bg-white shadow rounded-lg") 
+                div(class="swiper")
+                    div(class="swiper-wrapper")
+                        each images in image
+                            div(class="swiper-slide")
+                                a(href=`/imagenes/${property.id}`) 
+                                    img(
+                                        src=`/uploads/${images.name}`
+                                        alt= `Imágen de la propiedad ${property.title}`
+                                    )
+                    div(class="swiper-pagination")
+                div.px-5.py-10.space-y-4
+                    p= property.description
+
+                    h3(class="h3") Información de la propiedad
+
+                    div(class="grid grid-cols-1 md:grid-cols-2 gap-2")
+                        div.flex.gap-x-2.items-center
+                            p(class="text-accent text-xs") 
+                                include ../../icons/bath
+                            p(class="text-primary block text-sm")= property.wc
+                                    span  Baños
+                        div.flex.gap-x-2.items-center
+                            p(class="text-accent text-xs") 
+                                include ../../icons/bed
+                            p(class="text-primary block text-sm")= property.bedrooms
+                                    span  Dormitorios
+                        div.flex.gap-x-2.items-center
+                            p(class="text-accent text-xs")
+                                include ../../icons/garage
+                            p(class="text-primary block text-sm")= property.garage
+                                span  Estacionamientos
+                        div.flex.gap-x-2.items-center
+                            p(class="text-accent text-xs")
+                                include ../../icons/area
+                            p(class="text-primary block text-sm")= property.landArea
+                                span  mts2
+                        if property.builtArea > 0
+                            div.flex.gap-x-2.items-center
+                                p(class="text-accent text-xs")
+                                    include ../../icons/builtArea
+                                p(class="text-primary block text-sm")= property.builtArea
+                                    span  mts2
+                        if property.pets === 'mascotas'
+                            div.flex.gap-x-2.items-center
+                                p(class="text-accent text-xs")
+                                    include ../../icons/pets
+                        else
+                            div.flex.gap-x-2.items-center
+                                p(class="text-accent text-xs")
+                                    include ../../icons/noPets
+
+                div.grid.justify-items-end
+                    div.rounded-tl-full.rounded-bl-full.mb-5.bg-accent
+                        p(id="price" class="text-white text-xl font-semibold py-4 px-5 md:px-12")= propertyPrice(property.realPrice)
+                            span  MXN
+
+            div(class="md:w-1/3 bg-white shadow rounded-lg mt-5 md:mt-0")
+                h4(class="h4 text-center py-5 leading-6") Ubicación
+
+                div(class="h-96 mt-5 z-10" id="map")
+                    p#lat.hidden= property.lat
+                    p#lng.hidden= property.lng
+
+                div.p-5
+                    p.text-secondary.font-bold-text-xs Dirección 
+                        span#address.text-primary.block.text-lg= property.address
+
+                    if !isSeller
+                        h4(class="h4 text-center mt-10") Contacto
+                        if user && message.length
+                            p.bg-blue-100.text-blue-600.text-sm.text-center.p-2.font-semibold.rounded.mt-5 ¡Gracias por habernos contactado! 
+                            p.text-blue-600.text-sm.text-center.p-2.font-medium.rounded.mt-2 Por favor mantente pendiente de tu email para una pronta respuesta.
+
+                        else if user && !message.length
+                            if errors
+                                div(class="max-w-2xl mx-auto my-10")
+                                    each error in errors
+                                        p.error.bg-red-100.text-red-600.text-sm.text-center.p-2.font-bold.rounded= error.msg
+
+                            form(method='POST' class="space-y-5")
+                                input(
+                                    type="hidden"
+                                    name="_csrf"
+                                    value= csrfToken
+                                )
+                                //- message
+                                div
+                                    label.block.text-medium.text-accent.mb-1(for='message') Mensaje
+                                    textarea#message.w-full.px-3.py-2.border.border-gray-300.outline-violet-400.rounded-md.text-secondary.placeholder-gray-400(
+                                        placeholder='Escribe tu mensaje aquí' 
+                                        type='text' 
+                                        name='message'
+                                    )
+                                //- send
+                                input(
+                                    type="submit", 
+                                    value="Enviar"
+                                    class="send-message btn btn-sm btn-accent w-auto md:w-[280px] xl:w-[340px] mx-auto mt-10"
+                                )
+                        else
+                            div(class="flex justify-center mt-5 gap-2")
+                                p Si deseas contactar al vendedor 
+                                    a(href="/auth/login" class="text-accent") debes iniciar sesión
+                            div(class="flex justify-center mt-2 gap-2")
+                                p Si no tienes una cuenta 
+                                    a(href="/auth/registro" class="text-hover") te invitamos a crear una
+
+block scripts
+    script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js")
+    script(src="https://cdn.jsdelivr.net/npm/swiper@9.4.1/swiper-bundle.min.js")
+    script(src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js")
+    script(src="/js/filtersHome.js")
+    script(src="/js/swiper.js")
+    script(src="/js/showMap.js")

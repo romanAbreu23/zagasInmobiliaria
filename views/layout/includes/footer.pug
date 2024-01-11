@@ -1,0 +1,117 @@
+footer(class="footer pt-12 xl:pt-[150px]")
+    div(class="container mx-auto pb-12 xl:pb-[100px]")
+        div(class="flex flex-col xl:flex-row gap-x-5 gap-y-10")
+            //- footer contact section
+            div(class="footer__item flex-1")
+                //- logo
+                div(class="mb-[30px]")
+                    a(href="/") 
+                        img(
+                            src="../img/logo.png" 
+                            alt="Logo"
+                        )
+                //- desc
+                p(class="mb-[20px]") Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, amet!
+                //- location, email & phone
+                div.flex.flex-col.gap-y-3.mb-10
+                    div(class="flex items-center gap-x-[6px]")
+                        div(class="text-[24px] text-accent")
+                            include ../../../icons/location
+                        p.text-secondary 123 Arling, Miola, NY
+                    div(class="flex items-center gap-x-[6px]")
+                        div(class="text-[24px] text-accent")
+                            include ../../../icons/mail
+                        p.text-secondary zagasinmobiliaria@email.com
+                    div(class="flex items-center gap-x-[6px]")
+                        div(class="text-[24px] text-accent")
+                            include ../../../icons/phone
+                        p.text-secondary (+487) 384 9452
+
+                //- socials
+                div(class="flex gap-[14px] text-[30px]")
+                    div(class="p-[10px] rounded-[10px] shadow-custom2 text-accent-tertiary hover:text-accent cursor-pointer transition-all")
+                        i(class="ri-facebook-circle-fill")
+                    div(class="p-[10px] rounded-[10px] shadow-custom2 text-accent-tertiary hover:text-accent cursor-pointer transition-all")
+                        i(class="ri-instagram-fill")
+                    div(class="p-[10px] rounded-[10px] shadow-custom2 text-accent-tertiary hover:text-accent cursor-pointer transition-all")
+                        i(class="ri-twitter-fill")
+                        
+            //- footer quick links section
+            div(class="footer__items flex-1")
+                h4.h4.mb-5 Menú rapido
+                div.flex.gap-5
+                    //- list 1
+                    ul.flex-1.flex.flex-col.gap-y-5 
+                        li 
+                            a(href="/" class="hover:text-hover transition-all") Inicio
+                        if !user || !user.seller
+                            li
+                                a(href="/categorias/1" class="hover:text-hover transition-all") Propiedades
+                        else
+                            li
+                                a(href="/mis-propiedades" class="hover:text-hover transition-all") Mis propiedades
+                        li
+                            a(href="/mapa" class="hover:text-hover transition-all") Buscar en el mapa
+
+                    //- list 2
+                    ul.flex-1.flex.flex-col.gap-y-5 
+                        if !user
+                            //- login
+                            li
+                                a(href="/auth/login" class="hover:text-hover transition-all duration-300") Login
+                            //- register
+                            li
+                                a(href="/auth/registro" class="hover:text-hover transition-all duration-300") Crear cuenta
+                        else
+                            //- user
+                            li
+                                p.text-hover.capitalize.truncate= user.name
+                            //- logout
+                            li
+                                form(
+                                        action="/auth/cerrar-sesion" 
+                                        method="POST"
+                                        class="hover:text-hover transition-all duration-300"
+                                    ) 
+                                    input(
+                                        type="hidden"
+                                        name="_csrf"
+                                        value= csrfToken
+                                    )
+                                    input(
+                                        type="submit"
+                                        value="Cerrar sesión"
+                                    )
+
+            //- footer opening hours section
+            div.footer__item.flex-1
+                h4.h4.mb-5 A tu disposición
+                //- list
+                div.flex.flex-col.gap-5
+                    //- item 1
+                    div.flex-1
+                        div(class="flex justify-between items-center border-b pb-[10px]")
+                            p Lunes - Jueves 
+                            p.text-accent.font-medium 8:00 Am - 6:00 Pm
+                    //- item 2
+                    div.flex-1
+                        div(class="flex justify-between items-center border-b pb-[10px]")
+                            p Viernes - Sabado 
+                            p.text-accent.font-medium 10:00 Am - 5:00 Pm
+                    //- item 3
+                    div.flex-1
+                        div(class="flex justify-between items-center border-b pb-[10px]")
+                            p Domingo 
+                            p.text-accent.font-medium Solo emergencias
+                    //- item 3
+                    div.flex-1
+                        div(class="flex justify-between items-center border-b pb-[10px]")
+                            p Personal 
+                            p.text-accent.font-medium 7:00 Am - 9:00 Pm
+
+    //- copyright
+    div(class="py-[30px] border-t")
+        div.container.mx-auto.text-center
+            p.font-light.text-base &copy; 
+                span= year
+                span  Zagas Inmobiliaria - Todos los derechos reservados

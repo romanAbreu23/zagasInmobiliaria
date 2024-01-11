@@ -1,0 +1,56 @@
+extends ../layout/admin
+
+block contenido
+    div(class="py-0 lg:py-10")
+        h2.h2.text-center= pagina
+
+        if images.length
+            div.flex.justify-end
+                a(
+                    href="/mis-propiedades" 
+                    class="btn-accent rounded-full p-3 mt-2"
+                ) 
+                    include ../../icons/leftRow.pug
+
+        div(class="bg-white border-gray-200 shadow py-8 px-4 rounded-lg mx-auto my-5 md:px-10")
+            if images.length
+                div(class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5")
+                    each image in images
+                        //- image
+                        div(class="relative overflow-hidden")
+                            img(
+                                src=`/uploads/${image.name}`
+                                alt=`Imagen de la propiedad ${property.title}`
+                                class="object-cover w-full"
+                            )
+                            if images.length > 1
+                                //- badge
+                                div(class="bg-red-100 hover:bg-red-700 text-red-800 hover:text-white transition backdrop-blur-sm shadow-1 rounded-full absolute top-1 right-1 text-base tracking-[2.24px] font-medium")
+                                    //- delete 
+                                    form(method="POST" action=`/propiedades/eliminar-imagen/${image.id}`)
+                                        input(
+                                            type="hidden"
+                                            name="_csrf"
+                                            value= csrfToken
+                                        )
+                                        button(
+                                            type="submit"
+                                            class="p-2"
+                                        )
+                                            include ../../icons/trash
+            else 
+                h4.h4.text-center ¡IMPORTANTE! Debes tener mínimo una imágen
+
+            div(class="flex flex-col lg:flex-row items-center")
+                if images.length
+                    a(
+                        href="/mis-propiedades"
+                        class="btn btn-sm btn-outline w-auto md:w-[280px] xl:w-[340px] mx-auto mt-10"
+                    ) ¡Listo!
+                a(
+                    href=`/propiedades/agregar-nueva-imagen/${property.id}`
+                    class="btn btn-sm btn-accent w-auto md:w-[280px] xl:w-[340px] mx-auto mt-10"
+                ) Añadir imagen
+
+block scripts
+    script(src="/js/filtersHome.js")

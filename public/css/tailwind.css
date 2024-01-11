@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply text-secondary font-primary text-[17px] leading-8;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    @apply text-primary leading-[120%];
+}
+
+.h1 {
+    @apply text-[36px] xl:text-[64px] font-semibold;
+}
+
+.h2 {
+    @apply text-[30px] xl:text-[44px] font-semibold capitalize tracking-[0.44px];
+}
+
+.h3 {
+    @apply text-[20px] xl:text-[26px] font-semibold;
+}
+
+.h4 {
+    @apply text-[20px] xl:text-[26px] font-semibold capitalize;
+}
+
+.btn {
+    @apply rounded-full uppercase tracking-[1.02px] flex items-center justify-center transition-all cursor-pointer;
+}
+
+.btn-sm {
+    @apply h-14 px-10;
+}
+
+.btn-lg {
+    @apply h-16 px-[50px];
+}
+
+.btn-accent {
+    @apply bg-accent text-white hover:bg-accent-secondary;
+}
+
+.btn-white {
+    @apply bg-white text-secondary hover:bg-white/90;
+}
+
+.btn-outline {
+    @apply bg-transparent border-2 border-accent text-secondary hover:bg-accent hover:border-transparent hover:text-white;
+}
+
+.input,
+.select {
+    @apply w-full rounded-[10px] h-[66px] outline-none border border-[#dbdfdf] text-secondary font-light placeholder:font-light placeholder:text-secondary;
+}
+
+.input {
+    @apply px-4;
+}
+
+.section {
+    @apply py-12 xl:py-[150px];
+}
+
+/* swiper bullets */
+.swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
+.swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+    @apply bg-accent;
+}
+
+/* faq */
+.faq__item.open .faq__answer {
+    @apply h-full;
+}
+
+.dropdown {
+    @apply w-full lg:max-w-[352px] cursor-pointer;
+}
+
+.dropdown-btn {
+    @apply flex h-[64px] items-center px-[18px] border rounded-lg;
+}
+
+.dropdown-icon-primary {
+    @apply text-2xl ml-[8px] text-accent;
+}
+
+.dropdown-icon-secondary {
+    @apply text-2xl text-accent ml-auto;
+}
+
+.dropdown-menu {
+    @apply px-6 py-4 text-[15px] space-y-3 shadow-md bg-white absolute w-full z-10 list-none rounded-b-lg;
+}
+
+.filter {
+    @apply hidden;
+}

@@ -1,0 +1,55 @@
+extends ../layout/admin
+
+block contenido
+    div(class="py-0 lg:py-10")
+        h2.h2.text-center= pagina
+
+        div.flex.justify-between
+            form(
+                action="/buscador"
+                method="POST"
+                class="relative flex gap-x-[10px] items-center"
+            )
+                input(
+                    type="hidden"
+                    name="_csrf"
+                    value= csrfToken
+                )
+
+                label(for="search")
+                    div.text-accent
+                        include ../../icons/search
+                input(
+                    type="text"
+                    id="search"
+                    name="search"
+                    placeholder="Título..."
+                    class="outline-none w-[160px] bg-transparent focus:border-b-2 focus:border-accent placeholder:italic"
+                )
+
+                input(
+                    type="submit"
+                    value="Buscar"
+                    class="text-secondary hover:text-accent-secondary text-base font-medium transition"
+                )
+            a(
+                href="/mis-propiedades" 
+                class="btn-accent rounded-full p-4 my-5"
+            ) 
+                include ../../icons/leftRow
+
+        //- pre= JSON.stringify(properties, undefined, 2)
+        if properties.length
+            div(class="bg-white shadow-custom2 text-lg rounded-lg")
+                ul(id="properties-list" class="divide-y divide-gray-200")
+                    each property in properties
+                        if property.visible
+                            //- card
+                            li
+                                include ../templates/adminCard
+
+        else
+            p.text-center.my-10 No hay resultados
+
+block scripts
+    script(src="/js/filtersHome.js")

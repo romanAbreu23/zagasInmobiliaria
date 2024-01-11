@@ -1,0 +1,108 @@
+extends ./layout/app
+
+block styles
+    link(rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css")
+
+block contenido
+    div(class="py-0 lg:py-10")
+        h1(class="h1 text-center") Ubicación en el mapa
+
+        //- filters
+        div(class="py-8 px-4 rounded-lg mx-auto max-w-4xl my-5 md:px-10 space-y-6")
+            h4.h4 Filtros:
+            //- filter 1
+            div(class="lg:flex lg:gap-4 space-y-4 lg:space-y-0 mt-5")
+                //- sellRent
+                div(class="lg:w-1/3")
+                    div(class="flex items-center gap-x-2 mb-1")
+                        p.dropdown-icon-primary
+                            include ../icons/homeDollar
+                        label(for='sellRent') Venta / Renta
+                    select(id="sellRent" class="border rounded-lg w-full p-2 h-16 shadow")
+                        option(value="") Todos
+                            option(value='venta') En venta
+                            option(value='renta') En renta
+                //- categories
+                div(class="lg:w-1/3")
+                    div(class="flex items-center gap-x-2 mb-1")
+                        p.dropdown-icon-primary
+                            include ../icons/category
+                        label(for="categories") Categorias 
+                    select(id="categories" class="border rounded-lg w-full p-2 h-16 shadow")
+                        option(value="") Todos
+                        each category in categories
+                            option(value=category.id)= category.name
+                //- prices
+                div(class="lg:w-1/3")
+                    div(class="flex items-center gap-x-2 mb-1")
+                        p.dropdown-icon-primary
+                            include ../icons/wallet
+                        label(for="prices") Rango de precios 
+                    select(id="prices" class="border rounded-lg w-full p-2 h-16 shadow")
+                        option(value="") Todos
+                            each price in prices
+                                option(value=price.id)= price.name
+            //- filter 2
+            div(class="md:flex md:gap-4 space-y-4 md:space-y-0")
+                //- bedrooms
+                div(class="md:w-1/3")
+                    div(class="flex items-center gap-x-2 mb-1")
+                        p.dropdown-icon-primary
+                            include ../icons/bed
+                        label(for='bedrooms') Dormitorios
+                    select(id="bedrooms" class="border rounded-lg w-full p-2 h-16 shadow")
+                        option(value="") Todos
+                            - var n = 1;
+                                while n < 9
+                                    option(value=n) #{n++}
+                //- WC
+                div(class="md:w-1/3")
+                    div(class="flex items-center gap-x-2 mb-1")
+                        p.dropdown-icon-primary
+                            include ../icons/bath
+                        label(for="wc") Baños 
+                    select(id="wc" class="border rounded-lg w-full p-2 h-16 shadow")
+                        option(value="") Todos
+                            - var n = 1;
+                                while n < 9
+                                    option(value=n) #{n++}
+                //- garage
+                div(class="md:w-1/3")
+                    div(class="flex items-center gap-x-2 mb-1")
+                        p.dropdown-icon-primary
+                            include ../icons/garage
+                        label(for="garage") Estacionamientos
+                    select(id="garage" class="border rounded-lg w-full p-2 h-16 shadow")
+                        option(value="") Todos
+                            - var n = 1;
+                                while n < 5
+                                    option(value=n) #{n++}
+            //- filter 3
+            div(class="md:flex md:gap-4 space-y-4 md:space-y-0")
+                //- pets
+                div(class="md:w-1/2")
+                    div(class="flex items-center gap-x-2 mb-1")
+                        p.dropdown-icon-primary
+                            include ../icons/pets
+                        label(for='pets') Mascotas
+                    select(id="pets" class="border rounded-lg w-full p-2 h-16 shadow")
+                        option(value="") Todos
+                        option(value='mascotas') Se aceptan mascotas
+                        option(value='no-mascotas') No se aceptan mascotas
+                //- pool
+                div(class="md:w-1/2")
+                    div(class="flex items-center gap-x-2 mb-1")
+                        p.dropdown-icon-primary
+                            include ../icons/pool
+                        label(for='pool') Alberca
+                    select(id="pool" class="border rounded-lg w-full p-2 h-16 shadow")
+                        option(value="") Todos
+                        option(value='alberca') Con alberca
+                        option(value='no-alberca') Sin alberca
+
+        div(id="map-home" class="h-[450px] lg:h-[900px] mt-5 z-10")
+
+block scripts
+    script(src="/js/filtersHome.js")
+    script(src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js")
+    script(src="/js/mapHome.js")

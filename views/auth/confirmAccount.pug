@@ -1,0 +1,17 @@
+extends ../layout/index
+
+block contenido
+    div.py-10
+        h1.text-4xl.my-10.font-bold.text-center.text-accent Zagas 
+            span.font-normal.text-hover Inmobiliairia
+        h2.text-center.text-2xl.font-bold.text-green700= pagina
+
+    div(class="bg-white shadow py-8 px-4 rounded-md max-w-md mx-auto")
+        p(class= error ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700').py-2.px-5.rounded-md.w-full.font-semibold= message
+    
+    div.text-center.mt-5
+        if !error
+            a(
+                href="/auth/login" 
+                class="text-gray-500 hover:text-hover transition text-lg xl:text-base font-light"
+            ) Iniciar sesión

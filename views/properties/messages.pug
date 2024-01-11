@@ -1,0 +1,43 @@
+extends ../layout/admin
+
+block contenido
+    div(class="py-0 lg:py-10")
+        h2.h2.text-center= pagina
+
+        div.flex.justify-end
+            a(
+                href="/mis-propiedades" 
+                class="btn-accent rounded-full p-3 mt-2"
+            ) 
+                include ../../icons/leftRow
+            
+        div(class="mx-auto max-w-4xl my-5")
+            if messages.length
+                ul(class="bg-white shadow p-5")
+                    each message in messages
+                        div.flex.justify-end
+                            //- date
+                            p.font-normal.text-primary= dateFormat(message.createdAt)
+                            
+                        div(class="flex flex-col gap-y-4 lg:flex-row lg:gap-x-10 lg:gap-y-0")
+                            //- user name
+                            div(class="flex justify-left items-center gap-x-2 lg:justify-normal")
+                                div(class="text-[24px] text-primary")
+                                    include ../../icons/user
+                                p.text-secondary= message.user.name
+                            //- user email
+                            div(class="flex justify-left items-center gap-x-2 lg:justify-normal")
+                                div(class="text-[24px] text-primary")
+                                    include ../../icons/mail
+                                p.text-secondary= message.user.email
+
+                        li.border-gray-200.border-b.p-5 
+                            //- message
+                            p.font-bold.text-primary Mensaje:  
+                            p.font-normal= message.message
+
+            else
+                p.text-center.my-10 No hay mensajes
+
+block scripts
+    script(src="/js/filtersHome.js")

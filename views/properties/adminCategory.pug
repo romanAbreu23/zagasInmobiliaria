@@ -1,0 +1,115 @@
+extends ../layout/admin
+
+block styles
+    meta(name="csrf-token" content= csrfToken)
+    
+block contenido
+    include ../templates/adminCategories
+
+    div(class="py-0 lg:py-10")
+        h2.h2.text-center= pagina
+
+        div.flex.justify-between
+            //- search
+            div(class="relative flex gap-x-[10px] items-center")
+                label(for="search")
+                    div.text-accent
+                        include ../../icons/search
+                input(
+                    type="text"
+                    id="search"
+                    name="search"
+                    placeholder="Buscar..."
+                    class="outline-none w-[160px] bg-transparent focus:border-b-2 focus:border-accent placeholder:italic"
+                )
+            //- newProperty
+            a(
+                href="/propiedades/nueva" 
+                class="btn-accent rounded-full p-4 my-5"
+            ) 
+                include ../../icons/homeAdd
+
+        //- pre= JSON.stringify(properties, undefined, 2)
+        if properties.length
+            div(class="bg-white shadow-custom2 text-lg rounded-lg")
+                ul(id="properties-list" class="divide-y divide-gray-200")
+                    each property in properties
+                        if property.visible
+                            //- card
+                            li.result
+                                div(class="p-6 w-full flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-6 md:space-y-0 gap-4")
+                                    //- primera seccion
+                                    div(class="sm:w-1/4 md:w-2/6 lg:w-1/6 group")
+                                        //- image
+                                        div(class="relative overflow-hidden")
+                                            a(href=`/propiedades/editar-imagen/${property.id}`) 
+                                                img(
+                                                    src=`../uploads/${property.images[0].name}` 
+                                                    alt=`Imagen propiedad ${property.title}`
+                                                    class="object-cover h-auto md:h-36 w-full group-hover:scale-110 transition-all duration-500 rounded-lg"
+                                                )
+                                    //- segunda seccion
+                                    div(class="sm:w-2/4 md:w-2/6 lg:w-3/6 space-y-4")  
+                                        //- tittle
+                                        a(
+                                            href=`/propiedad/${property.id}`
+                                            class="title block text-xl font-semibold text-primary hover:text-red-300 transition truncate"
+                                        )= property.title
+                                        //- category
+                                        div(class="inline-flex rounded-full text-sm font-semibold leading-5")
+                                            p(class="rounded-full px-2 text-slate-800 bg-slate-200")
+                                                if property.categoryId == 1
+                                                    include ../../icons/home
+                                                if property.categoryId == 2
+                                                    include ../../icons/departments
+                                                if property.categoryId == 3
+                                                    include ../../icons/land
+                                                if property.categoryId == 4
+                                                    include ../../icons/store
+                                                if property.categoryId == 5
+                                                    include ../../icons/properties
+                                                if property.categoryId == 6
+                                                    include ../../icons/building
+                                        //- price
+                                        p(class="text-accent text-base font-normal")= propertyPrice(property.realPrice)
+                                        //- messages
+                                        a(href=`/mensajes/${property.id}` class="text-sm text-secondary hover:text-primary transition")= `${property.messages.length} Mensajes`
+                                    //- tercera seccion
+                                    div(class="w-auto lg:w-2/6 xl:w-2/6 flex flex-col lg:flex-row gap-2")
+                                        //- published 
+                                        button(
+                                            type="button"
+                                            data-property-id=`${property.id}`
+                                            class=`change-status w-full px-3 py-3 md:py-2 text-sm leading-5 font-semibold rounded truncate cursor-pointer transition ${property.published ? 'bg-green-100 hover:bg-green-200 text-green-800' : 'bg-slate-100 hover:bg-slate-200 text-red-800'}`
+                                        )= `${property.published ? 'Publicado' : 'No publicado'}`
+                                        //- edit
+                                        a(
+                                            href=`/propiedades/editar/${property.id}` 
+                                            class="w-full px-3 py-3 md:py-2 text-sm text-center leading-5 font-semibold rounded cursor-pointer bg-blue-100 hover:bg-blue-200 text-blue-800 transition"
+                                        ) Editar
+                                        //- delete 
+                                        //- form(method="POST" action=`/propiedades/eliminar/${property.id}`)
+                                        //-     input(
+                                        //-         type="hidden"
+                                        //-         name="_csrf"
+                                        //-         value= csrfToken
+                                        //-     )
+                                        //-     button(
+                                        //-         type="submit"
+                                        //-         class="w-full px-3 py-3 md:py-2 text-sm leading-5 font-semibold rounded cursor-pointer bg-red-100 hover:bg-red-200 text-red-800 transition"
+                                                
+                                        //-     ) Eliminar
+                                        button(
+                                            type="button"
+                                            data-property-id=`${property.id}`
+                                            class="delete-property w-full px-3 py-3 md:py-2 text-sm leading-5 font-semibold rounded cursor-pointer bg-red-100 hover:bg-red-200 text-red-800 transition"
+                                        ) Eliminar
+
+        else
+            p.text-center.my-10 No hay resultados
+
+block scripts
+    script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js")
+    script(src="../../js/filtersHome.js")
+    script(src="../../js/changeStatus.js")
+    script(src="../../js/deleteProperty.js")

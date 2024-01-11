@@ -1,0 +1,66 @@
+extends ../layout/index
+
+block contenido
+    div.py-10
+        a(href="/") 
+            h1.text-4xl.my-10.font-bold.text-center.text-accent Zagas 
+                span.font-normal.text-hover Inmobiliairia
+        h2.text-center.text-2xl.font-bold.text-secondary= pagina
+
+        if errors
+            div(class="max-w-md mx-auto my-10")
+                each error in errors
+                    p.bg-red-100.text-red-600.text-xs.text-center.p-2.mb-1.font-bold.rounded= error.msg
+
+        div.mt-8.mx-auto.max-w-lg
+            div.bg-white.py-8.px-4.shadow
+                form.space-y-5(method="POST" action="/auth/registro" noValidate)
+                    input(
+                        type="hidden"
+                        name="_csrf"
+                        value= csrfToken
+                    )
+                    div
+                        label.block.text-medium.text-accent.mb-2(for="name") Nombre de usuario
+                        input#name.w-full.px-3.py-1.border.border-gray-300.outline-blue-400.rounded-md.text-secondary.placeholder-gray-400(
+                            placeholder="Tu nombre" 
+                            type="text" 
+                            name="name"
+                            value= user ? user.name: ''
+                        )
+                    div
+                        label.block.text-medium.text-accent.mb-2(for="email") Email de registro
+                        input#email.w-full.px-3.py-1.border.border-gray-300.outline-blue-400.rounded-md.text-secondary.placeholder-gray-400(
+                            placeholder="ejemplo@correo.com" 
+                            type="email" 
+                            name="email"
+                            value= user ? user.email: ''
+                        )
+                    div
+                        label.block.text-medium.text-accent.mb-2(for="password") Password
+                        input#password.w-full.px-3.py-1.border.border-gray-300.outline-blue-400.rounded-md.text-secondary.placeholder-gray-400(
+                            placeholder="Crea tu password" 
+                            type="password" 
+                            name="password"
+                        )
+                    div
+                        label.block.text-medium.text-accent.mb-2(for="repetir_password") Confirmar password
+                        input#repetir_password.w-full.px-3.py-1.border.border-gray-300.outline-blue-400.rounded-md.text-secondary.placeholder-gray-400(
+                            placeholder="Repite tu password" 
+                            type="password" 
+                            name="repeat_password"
+                        )
+                    input(
+                        type="submit", 
+                        value="Crear cuenta"
+                        class="btn btn-sm btn-outline w-auto md:w-[280px] xl:w-[340px] mx-auto mt-10"
+                    )
+            div.flex.item-cener.justify-between.mt-5
+                a(
+                    href="/auth/login" 
+                    class="text-gray-500 hover:text-hover transition text-lg xl:text-base font-light"
+                ) Inicia sesión
+                a(
+                    href="/auth/olvide-password" 
+                    class="text-gray-500 hover:text-hover transition text-lg xl:text-base font-light"
+                ) Olvide mi password

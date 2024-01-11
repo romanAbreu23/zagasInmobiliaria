@@ -1,0 +1,245 @@
+header(class="py-8 lg:pt-6 lg:pb-14")
+    div(class="container mx-auto lg:relative flex flex-col lg:flex-row lg:justify-between items-center gap-y-4 lg:gap-y-0")
+        //- logo
+        div(class="flex justify-center lg:justify-normal")
+            a(href="/") 
+                img(
+                    src="../img/logo.png" 
+                    alt="Logo"
+                )
+        
+        div(class="flex flex-col gap-y-4 lg:flex-row lg:gap-x-10 lg:gap-y-0")
+            //- phone
+            div(class="flex justify-center items-center gap-x-2 lg:justify-normal")
+                div(class="text-[24px] text-accent")
+                    include ../../../icons/phone
+                p.text-secondary (+487) 384 9452
+            //- mail
+            div(class="flex justify-center items-center gap-x-2 lg:justify-normal")
+                div(class="text-[24px] text-accent")
+                    include ../../../icons/mail
+                p.text-secondary zagasinmobiliaria@email.com
+            //- btn
+            //- div(class="btn btn-sm btn-outline w-[240px] lg:w-auto mx-auto lg:mx-0") Reserva ahora
+
+        //- movile nav
+        nav(class="mnav bg-white fixed w-[300px] top-0 h-screen -left-[300px] shadow-2xl lg:hidden transition-all duration-300 z-20")
+            //- trigger btn
+            div(class="mnav__close-btn bg-primary w-8 h-8 relative -right-full top-8 flex justify-center items-center rounded-tr-full rounded-br-full cursor-pointer transition-all")
+                i(class="mnav__close-btn-icon ri-menu-2-line text-xl text-white")
+            //- logo, list
+            div(class="px-12 flex flex-col gap-y-12 h-full")
+                //- logo
+                div(class="flex justify-center lg:justify-normal text-2xl")
+                    a(href="/") 
+                        img(
+                            src="../img/logo.png" 
+                            alt="Logo"
+                        )
+                //- list
+                ul.flex.flex-col.gap-y-5
+                    li
+                        //- home
+                        a(
+                            href="/"
+                            class="flex items-center gap-x-2 lg:justify-normal text-secondary hover:text-hover transition-all duration-300"
+                        )
+                            p.text-accent
+                                include ../../../icons/home
+                            p Inicio
+                    if !user || !user.seller
+                        li
+                            //- properties
+                            a(
+                                href="/categorias/1"
+                                class="flex items-center gap-x-2 lg:justify-normal text-secondary hover:text-hover transition-all duration-300"
+                            )
+                                p.text-accent
+                                    include ../../../icons/properties
+                                p Propiedades
+                    else
+                        li
+                            //- my properties
+                            a(
+                                href="/mis-propiedades"
+                                class="flex items-center gap-x-2 lg:justify-normal text-secondary hover:text-hover transition-all duration-300"
+                            )
+                                p.text-accent
+                                    include ../../../icons/properties
+                                p Mis propiedades
+                    li
+                        //- map
+                        a(
+                            href="/mapa"
+                            class="flex items-center gap-x-2 lg:justify-normal text-secondary hover:text-hover transition-all duration-300"
+                        )
+                            p.text-accent
+                                include ../../../icons/map
+                            p Buscar en el mapa
+
+                div(class="flex items-center group fixed bottom-6")
+                    ul.flex.flex-col.gap-y-5
+                        if !user
+                            li
+                                //- login
+                                a(
+                                    href="/auth/login"
+                                    class="flex items-center gap-x-2 lg:justify-normal text-secondary hover:text-hover transition-all duration-300"
+                                )
+                                    p.text-accent
+                                        include ../../../icons/login
+                                    p Login
+                            li
+                                //- register
+                                a(
+                                    href="/auth/registro"
+                                    class="flex items-center gap-x-2 lg:justify-normal text-secondary hover:text-hover transition-all duration-300"
+                                )
+                                    p.text-accent
+                                        include ../../../icons/register
+                                    p Crear cuenta
+                        else 
+                            li
+                                //- user
+                                div(
+                                    class="flex items-center gap-x-2 lg:justify-normal"
+                                )
+                                    p.text-accent
+                                        include ../../../icons/userHeader
+                                    p.capitalize.truncate= user.name
+                            //- logout
+                            li
+                                form(
+                                        action="/auth/cerrar-sesion" 
+                                        method="POST"
+                                        class="flex justify-center items-center gap-x-2 lg:justify-normal text-secondary hover:text-hover transition-all duration-300"
+                                    ) 
+                                    input(
+                                        type="hidden"
+                                        name="_csrf"
+                                        value= csrfToken
+                                    )
+                                    p.text-accent
+                                        include ../../../icons/logout
+                                    input(
+                                        type="submit"
+                                        value="Cerrar sesión"
+                                    )
+
+
+        //- desktop nav
+        nav(class="bg-white absolute w-full left-0 -bottom-[86px] shadow-custom1 h-16 rounded-[10px] hidden lg:flex lg:items-center lg:justify-between lg:px-[50px]")
+            //- list
+            ul.flex.gap-x-4 
+                li
+                    //- home
+                    a(
+                        href="/"
+                        class="flex justify-center items-center gap-x-2 lg:justify-normal text-secondary hover:text-hover transition-all duration-300"
+                    )
+                        p.text-accent
+                            include ../../../icons/home
+                        p(class="border-r pr-4") Inicio
+                if !user || !user.seller
+                    li
+                        //- properties
+                        a(
+                            href="/categorias/1"
+                            class="flex justify-center items-center gap-x-2 lg:justify-normal text-secondary hover:text-hover transition-all duration-300"
+                        )
+                            p.text-accent
+                                include ../../../icons/properties
+                            p(class="border-r pr-4") Propiedades
+                else
+                    li
+                        //- my properties
+                        a(
+                            href="/mis-propiedades"
+                            class="flex justify-center items-center gap-x-2 lg:justify-normal"
+                        )
+                            span.text-accent
+                                include ../../../icons/properties
+                            p(class="border-r pr-4 text-secondary hover:text-hover transition-all duration-300") Mis Propiedades
+                li
+                    //- map
+                    a(
+                        href="/mapa"
+                        class="flex justify-center items-center gap-x-2 lg:justify-normal text-secondary hover:text-hover transition-all duration-300"
+                    )
+                        p.text-accent
+                            include ../../../icons/map
+                        p(class="border-r pr-4") Buscar en el mapa
+
+            div(class="flex justify-center items-center group")
+                ul.flex.gap-x-4 
+                    if !user
+                        li
+                            //- login
+                            a(
+                                href="/auth/login"
+                                class="flex justify-center items-center gap-x-2 lg:justify-normal text-secondary hover:text-hover transition-all duration-300"
+                            )
+                                p.text-accent
+                                    include ../../../icons/login
+                                p(class="border-r pr-4") Login
+                        li
+                            //- register
+                            a(
+                                href="/auth/registro"
+                                class="flex justify-center items-center gap-x-2 lg:justify-normal text-secondary hover:text-hover transition-all duration-300"
+                            )
+                                p.text-accent
+                                    include ../../../icons/register
+                                p Crear cuenta
+                    else 
+                        li
+                            //- user
+                            div(
+                                class="flex items-center gap-x-2 lg:justify-normal"
+                            )
+                                p.text-accent
+                                    include ../../../icons/userHeader
+                                p.capitalize.truncate.border-r.pr-4= user.name
+                        //- logout
+                        li
+                            form(
+                                    action="/auth/cerrar-sesion" 
+                                    method="POST"
+                                    class="flex justify-center items-center gap-x-2 lg:justify-normal text-secondary hover:text-hover transition-all duration-300"
+                                ) 
+                                input(
+                                    type="hidden"
+                                    name="_csrf"
+                                    value= csrfToken
+                                )
+                                p.text-accent.cursor-pointer
+                                    include ../../../icons/logout
+                                input(
+                                    type="submit"
+                                    class="cursor-pointer"
+                                    value="Cerrar sesión"
+                                )
+
+
+            //- form
+            //- form(
+            //-     action="/buscador"
+            //-     method="POST"
+            //-     class="relative flex gap-x-[10px] items-center"
+            //- )
+            //-     label(for="search")
+            //-         div.text-accent
+            //-             include ../../../icons/search
+            //-     input(
+            //-         type="text"
+            //-         id="search"
+            //-         name="search"
+            //-         placeholder="Propiedad..."
+            //-         class="outline-none w-[160px] focus:border-b-2 focus:border-accent placeholder:italic"
+            //-     )
+
+            //-     input(
+            //-         type="submit"
+            //-         value="Buscar"
+            //-         class="text-secondary hover:text-accent-secondary text-base font-medium transition"
+            //-     )

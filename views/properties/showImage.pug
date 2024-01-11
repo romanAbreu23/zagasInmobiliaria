@@ -1,0 +1,35 @@
+extends ../layout/app
+
+block styles
+
+block contenido
+
+    //- pre= JSON.stringify(images, undefined, 2)
+
+    div(class="py-0 lg:py-10")
+        h2#title.h2.text-center= pagina
+
+        div.flex.justify-end
+            a(
+                href=`/propiedad/${property[0].id}`
+                class="btn-accent rounded-full p-3 mt-2"
+            ) 
+                include ../../icons/leftRow.pug
+        
+        //- images
+        section(class="mt-10")
+            div(class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5")
+                each image in images
+                    a(href=`/uploads/${image.name}` data-lightbox="models" data-title=`${image.property.title}`) 
+                        div(class="overflow-hidden group")
+                            //- image
+                            div(class="relative overflow-hidden")
+                                img(
+                                    src=`/uploads/${image.name}`
+                                    alt=`Imagen de la propiedad ${image.property.title}`
+                                    class="object-cover w-full group-hover:scale-110 transition-all duration-500"
+                                )
+
+block scripts
+    script(src="/js/filtersHome.js")
+    script(src="/js/lightbox-plus-jquery.min.js")

@@ -1,0 +1,29 @@
+extends ./layout/app
+
+block styles
+    link(rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css")
+
+block hero
+    include ./layout/includes/hero
+
+block contenido
+    section(class="faq")
+        div(class="container mx-auto")
+            h2(class="faq__title h2 text-center mb-[50px]") Propiedades
+            
+            include ./templates/categories
+
+    //- propeties (Houses)
+    section(class="py-0 lg:py-10")
+        div(class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5")
+            each property in properties
+                //- card
+                include ./templates/card
+
+    a(
+        href="/categorias/1"
+        class="btn btn-sm btn-accent w-[340px] lx:w-auto mx-auto mt-10"
+    ) Ver más
+
+block scripts
+    script(src="/js/filtersHome.js")
