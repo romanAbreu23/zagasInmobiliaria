@@ -5,45 +5,6 @@ import { isSeller, dateFormat } from "../helpers/index.js";
 import { propertyPrice } from "../helpers/priceFormat.js";
 import { sendMessage } from "../helpers/emails.js";
 
-// const home = async (req, res) => {
-
-//     const [ prices, categories, houses, departments ] = await Promise.all([
-//         Price.findAll({ raw: true }),
-//         Category.findAll({ raw: true }),
-//         Property.findAll({
-//             where: {
-//                 categoryId: 1
-//             },
-//             include: [
-//                 { model: Category, as: 'category' },
-//                 { model: Price, as: 'price' }
-//             ],
-//             order: [
-//                 ['createdAt', 'DESC']
-//             ]
-//         }),
-//         Property.findAll({
-//             where: {
-//                 categoryId: 2
-//             },
-//             include: [
-//                 { model: Category, as: 'category' },
-//                 { model: Price, as: 'price' }
-//             ],
-//             order: [
-//                 ['createdAt', 'DESC']
-//             ]
-//         })
-//     ]);
-
-//     res.render('home', {
-//         pagina: 'Inicio',
-//         categories,
-//         prices,
-//         houses,
-//         departments
-//     });
-// };
 const home = async (req, res) => {
 
     // Obtener las propiedades de la categoria
