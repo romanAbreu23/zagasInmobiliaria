@@ -16,7 +16,7 @@
   \**************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n// Swiper\r\nconst swiper = new Swiper('.swiper', {\r\n    loop: true,\r\n\r\n    pagination: {\r\n        el: '.swiper-pagination',\r\n        clickable: true\r\n    },\r\n});\n\n//# sourceURL=webpack://bienesraices_mvc/./src/js/swiper.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n// Swiper\r\nconst swiper = new Swiper('.swiper', {\r\n    loop: true,\r\n\r\n    pagination: {\r\n        el: '.swiper-pagination',\r\n        clickable: true\r\n    },\r\n});\n\n//# sourceURL=webpack://zagas_inmobiliaria/./src/js/swiper.js?");
 
 /***/ })
 
