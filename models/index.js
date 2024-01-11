@@ -3,7 +3,7 @@ import Image from './Image.js';
 import Price from './Price.js';
 import Category from './Category.js';
 import User from './User.js';
-import Message from './message.js';
+import Message from './Message.js';
 
 Property.belongsTo(Price, { foreingKey: 'priceId' });
 Property.belongsTo(Category, { foreingKey: 'categoryId' });
