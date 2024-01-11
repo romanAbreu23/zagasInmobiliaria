@@ -1,7 +1,7 @@
 {
-  "name": "bienesraices_mvc",
+  "name": "zagas_inmobiliaria",
   "version": "1.0.0",
-  "description": "Mi primer proyecto de Node.js",
+  "description": "Proyecto de inmobiliaria para Zagas",
   "main": "index.js",
   "type": "module",
   "scripts": {
