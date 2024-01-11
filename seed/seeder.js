@@ -1,5 +1,4 @@
 import { exit } from 'node:process';
-import colors from 'colors';
 import categories from "./categories.js";
 import prices from "./prices.js";
 import users from "./users.js";
@@ -21,7 +20,7 @@ const importData = async () => {
             User.bulkCreate(users),
         ]);
 
-        console.log(colors.yellow('Datos importados correctamente'));
+        console.log('Datos importados correctamente');
         exit();
 
     } catch (error) {
@@ -34,7 +33,7 @@ const deleteData = async () => {
     try {
 
         await db.sync({ force: true });
-        console.log(colors.green('Datos eliminados correctamente'));
+        console.log('Datos eliminados correctamente');
         exit();
 
     } catch (error) {

@@ -1,5 +1,4 @@
 import { unlink } from 'node:fs/promises';
-import colors from 'colors';
 import { Sequelize } from "sequelize";
 import { validationResult } from 'express-validator';
 import { Price, Category, Property, User, Message, Image } from '../models/index.js';

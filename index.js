@@ -1,5 +1,4 @@
 import express from "express";
-import colors from 'colors';
 import csrf from 'csurf';
 import cookieParser from "cookie-parser";
 import userRoutes from './routes/userRoutes.js';
@@ -24,7 +23,7 @@ app.use(csrf({ cookie: true }));
 try {
     await db.authenticate();
     db.sync(); // Ayuda a crear la tabla en caso de que no este creada
-    console.log(colors.magenta('Conexión exitosa a la base de datos'))
+    console.log('Conexión exitosa a la base de datos')
 } catch (error) {
     console.log(error);
 }
@@ -43,8 +42,9 @@ app.use('/', propertiesRoutes);
 app.use('/api', apiRoutes);
 
 // Definir un puerto y arrancar el proyecto
-const port = process.env.PORT || 3000;
+// const port = process.env.PORT || 3000;
+const port = 3307 || 3000;
 
 app.listen(port, () => {
-    console.log(colors.cyan('El servidor esta funcionando en el puerto:'), port);
+    console.log('El servidor esta funcionando en el puerto:', port);
 });
